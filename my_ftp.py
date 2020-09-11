@@ -8,10 +8,9 @@ Specifically designed to work with speedtest.tele2.net.
 import ftplib
 import os
 import sys
+from pyinputplus import inputNum, inputYesNo
 import constant
 
-# TODO: add retry option for upload/download for more files
-# TODO: finish up menu loop option
 
 def userWelcome():
     '''
@@ -29,12 +28,41 @@ def userWelcome():
     print("FTP Server: speedtest.tele2.net")
     print("=" * 30)
 
-def itemMenu():
+def itemMenu(ftp_connection):
     '''
     Prompt user with an item menu and issue class functions accordingly.
-    Promp user for choice to re-run through file upload/download again. 
+    Promp user for choice to re-run through file upload/download again.
     '''
-    pass
+    while True:
+        print("=" * 12 + " MENU " + "=" * 12)
+        print("Please choose an option from the menu:")
+        print("1) Upload")
+        print("2) Download")
+        print("3) Exit program")
+        choice = inputNum(prompt="Option: ", min=1, max=3)
+        if choice == 1:
+            while True:
+                ftp_connection.uploadPrompt()
+                ftp_connection.uploadFile()
+                retry_upload = inputYesNo(prompt="Upload another? ")
+                if 'yes' in retry_upload:
+                    continue
+                else:
+                    break
+            continue
+        elif choice == 2:
+            while True:
+                ftp_connection.downloadPrompt()
+                ftp_connection.downloadFile()
+                retry_download = inputYesNo(prompt="Download another? ")
+                if 'yes' in retry_download:
+                    continue
+                else:
+                    break
+            continue
+        else:
+            print("Exiting program. Goodbye!")
+            sys.exit()
 
 class MyFTP():
     '''
@@ -150,7 +178,4 @@ if __name__ == "__main__":
         constant.FTP_SERVER,
         constant.USERNAME,
         constant.PASSWORD)
-    my_ftp_connection.uploadPrompt()
-    my_ftp_connection.uploadFile()
-    my_ftp_connection.downloadPrompt()
-    my_ftp_connection.downloadFile()
+    itemMenu(my_ftp_connection)
