@@ -12,21 +12,21 @@ A simple program designed to work with speedtest.tele2.net specifically with use
 
 ## Environment Setup
 
-1. Install Python (Linux-oriented)
+1. Install Python (Linux-oriented)  
 ```$ sudo apt-get update```  
 ```$ sudo apt-get install python3.8```  
 
-2. Set up virtual environment (recommended, not required)
-*Version/path dependent on your Python installation*
-```sudo apt-get install python3-pip```
-```pip install virtualenv```
-```python3 -m venv env```
+2. Set up virtual environment (recommended, not required)  
+*Version/path dependent on your Python installation*  
+```sudo apt-get install python3-pip```  
+```pip install virtualenv```  
+```python3 -m venv env```  
 
-3. Activate virtual environment from working directory in repository
-```source env/bin/activate```
+3. Activate virtual environment from working directory in repository  
+```source env/bin/activate```  
 
-4. Download requirements.txt file to your working repository, then install required packages via pip
-```pip install -r requirements.txt```
+4. Install required packages via pip  
+```pip install -r requirements.txt```  
 
 
 ## Running the application
