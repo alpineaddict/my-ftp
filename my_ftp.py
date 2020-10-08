@@ -12,7 +12,7 @@ from pyinputplus import inputNum, inputYesNo
 import constant
 
 
-def userWelcome():
+def user_welcome():
     '''
     Welcome user and present FTP information.
     '''
@@ -28,7 +28,7 @@ def userWelcome():
     print("FTP Server: speedtest.tele2.net")
     print("=" * 30)
 
-def itemMenu(ftp_connection):
+def item_menu(ftp_connection):
     '''
     Prompt user with an item menu and issue class functions accordingly.
     Promp user for choice to re-run through file upload/download again.
@@ -42,8 +42,8 @@ def itemMenu(ftp_connection):
         choice = inputNum(prompt="Option: ", min=1, max=3)
         if choice == 1:
             while True:
-                ftp_connection.uploadPrompt()
-                ftp_connection.uploadFile()
+                ftp_connection.upload_prompt()
+                ftp_connection.upload_file()
                 retry_upload = inputYesNo(prompt="Upload another? ")
                 if 'yes' in retry_upload:
                     continue
@@ -52,8 +52,8 @@ def itemMenu(ftp_connection):
             continue
         elif choice == 2:
             while True:
-                ftp_connection.downloadPrompt()
-                ftp_connection.downloadFile()
+                ftp_connection.download_prompt()
+                ftp_connection.download_file()
                 retry_download = inputYesNo(prompt="Download another? ")
                 if 'yes' in retry_download:
                     continue
@@ -86,7 +86,7 @@ class MyFTP():
             print("Terminating program. Goodbye!")
             sys.exit()
 
-    def directoryExistCheck(self, local_file_path):
+    def directory_exist_check(self, local_file_path):
         '''
         Check to see whether or not directory exists. Return bool val
         for condition. Will be used to determine whether or not to proceed
@@ -96,7 +96,7 @@ class MyFTP():
         if os.path.exists(self.local_file_path):
             return True
 
-    def uploadPrompt(self):
+    def upload_prompt(self):
         '''
         Prompt user for information needed for FTP file upload.
         '''
@@ -109,11 +109,11 @@ class MyFTP():
         self.local_file_path = input("Full file path (Local): ")
         self.new_file_name = input("New file name (Ex: lines.txt): ")
 
-    def uploadFile(self):
+    def upload_file(self):
         '''
         Attempt to upload file to FTP.
         '''
-        if self.directoryExistCheck(self.local_file_path):
+        if self.directory_exist_check(self.local_file_path):
             try:
                 print("Attempting file upload...")
                 with open(self.local_file_path,'rb') as fh:
@@ -131,7 +131,7 @@ class MyFTP():
         else:
             print("ERROR! Path does not exist locally.")
 
-    def downloadPrompt(self):
+    def download_prompt(self):
         '''
         Prompt user for information needed for FTP file download.
         '''
@@ -150,11 +150,11 @@ class MyFTP():
         self.new_file_name = input("New file name (Ex: newLines.txt): ")
         self.new_file_name = self.local_file_path + self.new_file_name
 
-    def downloadFile(self):
+    def download_file(self):
         '''
         Attempt to download file from FTP to local repository.
         '''
-        if self.directoryExistCheck(self.local_file_path):
+        if self.directory_exist_check(self.local_file_path):
             try:
                 print("Attempting file download...")
                 with open(self.new_file_name,"wb") as fh:
@@ -173,9 +173,9 @@ class MyFTP():
             print("ERROR! Path does not exist locally.")
 
 if __name__ == "__main__":
-    userWelcome()
+    user_welcome()
     my_ftp_connection = MyFTP(
         constant.FTP_SERVER,
         constant.USERNAME,
         constant.PASSWORD)
-    itemMenu(my_ftp_connection)
+    item_menu(my_ftp_connection)
